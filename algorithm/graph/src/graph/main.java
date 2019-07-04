@@ -8,21 +8,27 @@ import java.io.IOException;
 public class main {
 
 	public static void main(String[] args) {
-		Graph g = null;
+//		IGraph g = null;
+		Digraph g = null;
 	    try (BufferedReader br = new BufferedReader(new FileReader(args[0]));)
 	    {
-	        g = new Graph(br);
+//	        g = new Graph(br);
+	    	g = new Digraph(br);
         } catch(FileNotFoundException e){
 	        System.out.println(e);
         } catch(IOException e) {
 	        System.out.println(e);
         }
-	    g.show();
-	    DepthFirstPaths dfs = new DepthFirstPaths(g, 0);
-	    for (int i : dfs.getEdgeTo())
-	    	System.out.println(i);
 
-	    System.out.println(dfs.visitedVertices());
+//	    DepthFirstPaths path = new DepthFirstPaths(g, 0);
+//	    System.out.println(path.visitedVertices());
+
+//	    BreadthFirstPaths path = new BreadthFirstPaths(g, 0);
+//	    System.out.println(path.pathTo(3));
+
+	    DepthFirstOrder order = new DepthFirstOrder(g);
+	    System.out.println(order.reversePost());
+
 
 	}
 

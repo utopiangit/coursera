@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashSet;
 
-public class Graph {
+public class Graph implements IGraph{
 	private int V;
 	private HashSet<Integer>[] adj;
 
@@ -45,17 +45,20 @@ public class Graph {
 		adj[w].add(v);
 	}
 
-	Iterable<Integer> adj(int v)
+	@Override
+	public Iterable<Integer> adj(int v)
 	{
 		return this.adj[v];
 	}
 
-	int V()
+	@Override
+	public int V()
 	{
 		return this.V;
 	}
 
-	int E()
+	@Override
+	public int E()
 	{
 		// Streamで書いた方がいいかも
 		int e = 0;

@@ -1,22 +1,21 @@
 package graph;
 
-import java.util.ArrayList;
+import java.util.Stack;
 
 public class DepthFirstPaths {
 	private boolean[] marked;
 	private int[] edgeTo;
-//	private int s;
+	private int s;
 
-	public DepthFirstPaths(Graph g, int s)
+	public DepthFirstPaths(IGraph g, int s)
 	{
-		// 全部-1等で初期化すべき？
 		this.marked = new boolean[g.E()];
 		this.edgeTo = new int[g.V()];
-//		this.s = s;
+		this.s = s;
 		dfs(g, s);
 	}
 
-	private void dfs(Graph g, int v)
+	private void dfs(IGraph g, int v)
 	{
 		marked[v] = true;
 		for (int w : g.adj(v))
@@ -29,20 +28,29 @@ public class DepthFirstPaths {
 		}
 	}
 
-	public int[] getEdgeTo()
+//	public Iterable<Integer> visitedVertices()
+//	{
+//		ArrayList<Integer> l = new ArrayList<Integer>();
+//		for (int i = 0; i < this.marked.length; ++i)
+//		{
+//			if (marked[i])
+//				l.add(i);
+//		}
+//		return l;
+//	}
+
+	public boolean hasPathTo(int v)
 	{
-		return this.edgeTo;
+		return marked[v];
 	}
 
-	public Iterable<Integer> visitedVertices()
+	public Iterable<Integer> pathTo(int v)
 	{
-		ArrayList<Integer> l = new ArrayList<Integer>();
-		for (int i = 0; i < this.marked.length; ++i)
-		{
-			if (marked[i])
-				l.add(i);
-		}
-		return l;
+	   if (!hasPathTo(v)) return null;
+	   Stack<Integer> path = new Stack<Integer>();
+	   for (int x = v; x != this.s; x = edgeTo[x])
+	      path.push(x);
+	   path.push(this.s);
+	   return path;
 	}
-
 }
